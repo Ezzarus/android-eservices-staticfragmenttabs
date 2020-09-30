@@ -1,9 +1,13 @@
 package android.eservices.staticfragmenttabs;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,13 +24,28 @@ public class MainActivity extends AppCompatActivity {
         setupViewPagerAndTabs();
     }
 
-    //TODO fill the method to get view references and initialize viewpager to display our fragments
     private void setupViewPagerAndTabs() {
 
-        //TODO we want two fragments with layouts : fragment_one, fragment_two.
+        final FragmentOne fragmentOne = FragmentOne.newInstance();
+        final FragmentTwo fragmentTwo = FragmentTwo.newInstance();
 
-        //TODO set adapter to viewpager and handle tragment change inside
-        //viewpager.setAdapter(...);
+        viewPager = (ViewPager) findViewById(R.id.tab_viewpager);
+        viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                if (position == 0) {
+                    return fragmentOne;
+                } else {
+                    return fragmentTwo;
+                }
+
+            }
+
+            @Override
+            public int getCount() {
+                return 2;
+            }
+        });
 
     }
 
